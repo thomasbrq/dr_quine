@@ -1,0 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define CODE "#include <stdio.h>%1$c#include <stdlib.h>%1$c#include <string.h>%1$c#define CODE %2$c%3$s%2$c%1$c#define FT(i) int main() {char path[200];sprintf(path, %2$cSully_%4$cd.c%2$c, (i-1));char name[200];strncpy(name, path, strlen(path) - 2);name[strlen(path)-2] = %6$c%7$c0%6$c;FILE *file = fopen(path, %2$cw%2$c);if (file == NULL)return (1);fprintf(file, CODE, 10, 34, CODE, 37, (i-1), 39, 92);fclose(file);char command[512];sprintf(command, %2$cclang -Wall -Werror -Wextra %4$cs -o %4$cs%2$c, path, name);system(command);sprintf(command, %2$c./%4$cs%2$c, name);if ((i-1) > 0)system(command);return 0;}%1$cFT(%5$d);"
+#define FT(i) int main() {char path[200];sprintf(path, "Sully_%d.c", (i-1));char name[200];strncpy(name, path, strlen(path) - 2);name[strlen(path)-2] = '\0';FILE *file = fopen(path, "w");if (file == NULL)return (1);fprintf(file, CODE, 10, 34, CODE, 37, (i-1), 39, 92);fclose(file);char command[512];sprintf(command, "clang -Wall -Werror -Wextra %s -o %s", path, name);system(command);sprintf(command, "./%s", name);if ((i-1) > 0)system(command);return 0;}
+FT(5);
